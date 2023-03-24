@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:buzzerapp/TestCases//testvalidations.dart';
 import 'package:buzzerapp/Screens/SplashScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../Colors/colors.dart';
 
 
@@ -16,7 +17,11 @@ import 'HomeScreen.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -45,7 +50,7 @@ class MyHome extends StatelessWidget {
   void showAlert(BuildContext context) {
     showGeneralDialog(
       barrierDismissible: false,
-      transitionDuration: const Duration(milliseconds: 2000),
+      transitionDuration: const Duration(milliseconds: 3000),
       context: context,
       pageBuilder: (context, anim1, anim2) {
         return WillPopScope(
@@ -97,7 +102,7 @@ class _LoginScreenState extends State<Login> {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         padding: const EdgeInsets.all(20),
         child: Center(
           child: SizedBox(

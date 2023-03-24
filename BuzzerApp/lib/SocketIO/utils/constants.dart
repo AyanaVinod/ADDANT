@@ -1,2 +1,2 @@
-const appName = 'Quick Chat';
-final serverUrl = 'ws://localhost:9001';
+const serverUrl = 'ws://192.168.1.132:9001';
+

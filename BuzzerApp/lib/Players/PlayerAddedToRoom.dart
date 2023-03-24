@@ -1,9 +1,10 @@
 import 'package:buzzerapp/Screens/CurrentSession.dart';
 import 'package:buzzerapp/Screens/JoinedUserSession.dart';
+import 'package:buzzerapp/SocketIO/services/socket_demo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Colors/colors.dart';
-import '../SocketIO/services/socketio_service.dart';
+
 
 class PlayerAddedRoom extends StatefulWidget {
   PlayerAddedRoom({super.key});
@@ -113,43 +114,47 @@ Widget _secondContainer(BuildContext context) {
 }
 
 Widget _thirdContainer(BuildContext context) {
+
   return SizedBox(
-    child: StreamBuilder(
-      stream: SocketService.userResponse,
-      builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.none) {
-          return const Center(child: LinearProgressIndicator());
-        }
-
-        if (snapshot.data == null) {
-          return const SizedBox();
-        }
-
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: (snapshot.data ?? [])
-                .map((e) => Container(
-              margin: const EdgeInsets.only(right: 6),
-              child: Chip(
-                  avatar: const Icon(Icons.person),
-                  elevation: 2,
-                  label: Text(e)),
-            ))
-                .toList(),
-          ),
-        );
-      },
-    ),
-  );
+  child:
+  //   child: StreamBuilder(
+  //     // stream: SocketService.userResponse,
+  //     stream: SocketDemo.message(currentuser),
+  //     builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+  //       if (snapshot.connectionState == ConnectionState.none) {
+  //         return const Center(child: LinearProgressIndicator());
+  //       }
   //
-  //  Text(
-  //   'Joined in as $joinedUser',
-  //   style: const TextStyle(
-  //       fontSize: 12,
-  //       fontFamily: 'Gilroy',
-  //       fontWeight: FontWeight.w500,
-  //       color: textYellow),
+  //       if (snapshot.data == null) {
+  //         return const SizedBox();
+  //       }
+  //
+  //       return SingleChildScrollView(
+  //         scrollDirection: Axis.horizontal,
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.start,
+  //           children: (snapshot.data ?? [])
+  //               .map((e) => Container(
+  //             margin: const EdgeInsets.only(right: 6),
+  //             child: Chip(
+  //                 avatar: const Icon(Icons.person),
+  //                 elevation: 2,
+  //                 label: Text(e)),
+  //           ))
+  //               .toList(),
+  //         ),
+  //       );
+  //     },
+  //   ),
   // );
+  //
+   Text(
+    'Joined in as $currentuser',
+    style: const TextStyle(
+        fontSize: 12,
+        fontFamily: 'Gilroy',
+        fontWeight: FontWeight.w500,
+        color: textYellow),
+  )
+  );
 }

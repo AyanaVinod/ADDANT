@@ -19,6 +19,8 @@ class _gamepopupState extends State<gamepopup>
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
       clipBehavior: Clip.antiAlias,
+
+      insetPadding: const EdgeInsets.symmetric(horizontal: 30,vertical: 50),
       child: SizedBox(
         height: 300,
         width: MediaQuery.of(context).size.width - 10,

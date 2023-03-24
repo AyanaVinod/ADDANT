@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -43,7 +42,7 @@ class _BuzzerMainState extends State<BuzzerMain>
     // currenttime = DateFormat('HH:mm:ss:sss a').format(now);
     var clocktime = DateTime.parse(currentNtpTimeMs.stringify);
     buzzerTime =
-        "${clocktime.hour < 10 ? '0' : ''}${(clocktime.hour > 12 ? clocktime.hour - 12 : clocktime.hour).abs()}:${clocktime.minute < 10 ? '0' : ''}${clocktime.minute}:${clocktime.second < 10 ? '0' : ''}${clocktime.second}:${clocktime.millisecond} ${clocktime.hour >= 12 ? "PM" : "AM"}";
+    "${clocktime.hour < 10 ? '0' : ''}${(clocktime.hour > 12 ? clocktime.hour - 12 : clocktime.hour).abs()}:${clocktime.minute < 10 ? '0' : ''}${clocktime.minute}:${clocktime.second < 10 ? '0' : ''}${clocktime.second}:${clocktime.millisecond} ${clocktime.hour >= 12 ? "PM" : "AM"}";
   }
 
   @override
@@ -104,7 +103,7 @@ class _BuzzerMainState extends State<BuzzerMain>
                         }
                         ChangeTime();
                         ChangeImage(
-                            Image.asset('assets/images/ic_green_animated.png'));
+                            Image.asset('assets/images/ic_buzzergreen.png'));
                         PlayAudio();
                         Future.delayed(const Duration(seconds: 3), () {
                           ChangeImage(
@@ -113,9 +112,9 @@ class _BuzzerMainState extends State<BuzzerMain>
                       },
                       child: Align(
                           child: Image(
-                        image: showImg.image,
-                        width: 250,
-                      )),
+                            image: showImg.image,
+                            width: 250,
+                          )),
                     ),
                     const SizedBox(height: 320,)
                   ],
@@ -300,13 +299,16 @@ Widget _secondContainer(BuildContext context) {
           child: Material(
             type: MaterialType.transparency,
             child: Ink(
+              height: 40,
+              width: 40,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100), color: iconBorder),
               child: InkWell(
+
                 onTap: () {},
                 child: IconButton(
                   icon: const Icon(Icons.volume_up),
-                  iconSize: 30,
+                  iconSize: 25,
                   color: Colors.white,
                   onPressed: () {
                     //currenttime = DateTime.now().toString();
@@ -336,22 +338,22 @@ Widget _secondContainer(BuildContext context) {
 
 String BuzzerTime = '';
 
-Future<DateTime> main() async {
-  DateTime _myTime;
-  DateTime _ntpTime;
-
-  /// Or you could get NTP current (It will call DateTime.now() and add NTP offset to it)
-  _myTime = await NTP.now();
-
-  /// Or get NTP offset (in milliseconds) and add it yourself
-  //final int offset = await NTP.getNtpOffset(localTime: DateTime.now());
-  //_ntpTime = _myTime.add(Duration(milliseconds: offset));
-  final int offset = await NTP.getNtpOffset(
-      localTime: DateTime.now(), lookUpAddress: "time.google.com");
-  var inputFormat = DateFormat('HH:mm');
-  DateTime internetTime = inputFormat.parse('22:59');
-  return internetTime;
-}
+// Future<DateTime> main() async {
+//   DateTime _myTime;
+//   DateTime _ntpTime;
+//
+//   /// Or you could get NTP current (It will call DateTime.now() and add NTP offset to it)
+//   _myTime = await NTP.now();
+//
+//   /// Or get NTP offset (in milliseconds) and add it yourself
+//   //final int offset = await NTP.getNtpOffset(localTime: DateTime.now());
+//   //_ntpTime = _myTime.add(Duration(milliseconds: offset));
+//   // final int offset = await NTP.getNtpOffset(
+//   //     localTime: DateTime.now(), lookUpAddress: "time.google.com");
+//   var inputFormat = DateFormat('HH:mm');
+//   DateTime internetTime = inputFormat.parse('22:59');
+//   return internetTime;
+// }
 
 @override
 Widget Timer(BuildContext context) {
@@ -511,14 +513,14 @@ class UpdateTextState extends State {
     return Scaffold(
         body: Center(
             child: Column(children: <Widget>[
-      Container(
-          padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-          child: Text('$textHolder',
-              style: const TextStyle(
-                  fontSize: 21,
-                  fontFamily: 'Gilroy',
-                  fontWeight: FontWeight.w500))),
-    ])));
+              Container(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  child: Text('$textHolder',
+                      style: const TextStyle(
+                          fontSize: 21,
+                          fontFamily: 'Gilroy',
+                          fontWeight: FontWeight.w500))),
+            ])));
   }
 }
 
@@ -553,11 +555,11 @@ Widget fifthContainer(BuildContext context) {
 Widget _sixthContainer(BuildContext context) {
   return Container(
       child: Visibility(
-    visible: false,
-    child: Image.asset(
-      'assets/images/ic_QRScanneer.png',
-      height: 300,
-      width: 300,
-    ),
-  ));
+        visible: false,
+        child: Image.asset(
+          'assets/images/ic_QRScanneer.png',
+          height: 300,
+          width: 300,
+        ),
+      ));
 }

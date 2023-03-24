@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../Colors/colors.dart';
+import '../Players/PlayerJoiningRoom.dart';
 import '../Screens/PinGenerated.dart';
 import '../Masters/MasterJoiningRoom.dart';
 import '../Screens/QRGenerated.dart';
@@ -84,7 +85,7 @@ class _StackPopState extends State<StackPop>
               ),
             ),
             Container(
-              transform: Matrix4.translationValues(230, -30, 0),
+              transform: Matrix4.translationValues(255, -30, 0),
               child: Row(
                 children: [
                   Material(
@@ -143,14 +144,14 @@ class _StackPopState extends State<StackPop>
                         ),
                       ),
                       const SizedBox(
-                        width: 30,
+                        width: 54,
                       ),
                       InkWell(
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => TeamRoom()));
+                                  builder: (context) => const TeamRoom()));
                         },
                         child: Container(
                           height: 100,
@@ -188,7 +189,7 @@ class _StackPopState extends State<StackPop>
                         ),
                       ),
                       const SizedBox(
-                        width: 30,
+                        width: 54,
                       ),
                       InkWell(
                         onTap: () {
@@ -228,7 +229,7 @@ class _StackPopState extends State<StackPop>
                           fontFamily: 'Gilroy'),
                     ),
                     SizedBox(
-                      width: 40,
+                      width: 60,
                     ),
                     Text(
                       'Generate PIN',

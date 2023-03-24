@@ -8,7 +8,7 @@ class TimelimitButton extends StatefulWidget {
   _TimelimitButtonState createState() => _TimelimitButtonState();
 }
 
-final Color darkBlue = Color.fromARGB(255, 18, 32, 47);
+final Color darkBlue = const Color.fromARGB(255, 18, 32, 47);
 
 class _TimelimitButtonState extends State<TimelimitButton> {
   bool _hasBeenPressed = false;

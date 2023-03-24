@@ -10,13 +10,13 @@ import 'ScoreBoardGame.dart';
 import 'TimerScored.dart';
 
 
-class TeamRoom extends StatefulWidget {
-  TeamRoom({super.key});
+class TeamRoomMaster extends StatefulWidget {
+  TeamRoomMaster({super.key});
   @override
-  _TeamRoomState createState() => _TeamRoomState();
+  _TeamRoomMasterState createState() => _TeamRoomMasterState();
 }
 
-class _TeamRoomState extends State<TeamRoom> {
+class _TeamRoomMasterState extends State<TeamRoomMaster> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -144,8 +144,8 @@ Widget _mainContainer(BuildContext context) {
                     width: 100,
                     child: DottedBorder(
                       borderType: BorderType.Circle,
-                      radius: Radius.circular(20),
-                      dashPattern: [10, 10],
+                      radius: const Radius.circular(20),
+                      dashPattern: const [10, 10],
                       color: greyColor,
                       strokeWidth: 1,
                       child: Card(
