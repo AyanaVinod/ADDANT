@@ -1,13 +1,15 @@
 import 'package:buzzerapp/Players/PlayerAddedToRoom.dart';
 import 'package:buzzerapp/Screens/CurrentSession.dart';
 import 'package:buzzerapp/Screens/HomeScreen.dart';
-import 'package:buzzerapp/SocketIO/services/socketio_service.dart';
+
+import 'package:buzzerapp/SocketIO/services/socket_demo.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Colors/colors.dart';
+import '../Masters/MasterJoiningRoom.dart';
+import '../Players/PlayerJoiningRoom.dart';
 import 'PinInputScreen.dart';
-
-
 
 class PinCode extends StatefulWidget {
   PinCode({super.key});
@@ -45,7 +47,6 @@ class _PinCodeState extends State<PinCode> {
       ),
     );
   }
-
 
   Widget _appbar(BuildContext context) {
     return AppBar(
@@ -114,16 +115,22 @@ class _PinCodeState extends State<PinCode> {
 
   Widget _thirdContainer(BuildContext context) {
     var name = currentuser;
+    bool _isJoined = false;
     return SizedBox(
       width: 300,
       height: 50,
       child: ElevatedButton(
         onPressed: () {
           if (currentvalue == pinNumber) {
-            SocketService.setUserName(name);
             SocketService.connectAndListen();
+            SocketService.setUserName(currentuser);
+
+            setState(() {
+              joineduser = true;
+            });
+
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => PlayerAddedRoom()));
+                context, MaterialPageRoute(builder: (context) => const TeamRoom()));
           }
 
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -148,5 +155,4 @@ class _PinCodeState extends State<PinCode> {
       ),
     );
   }
-
 }

@@ -1,24 +1,20 @@
 import 'dart:async';
-
 import 'package:socket_io_client/socket_io_client.dart' as io;
-
-import '../models/Room.dart';
 import '../utils/constants.dart';
 
 class SocketService {
   static List<String> users = [];
-  static late StreamController<Room> _socketResponse;
-  static late StreamController<List<String>> _userResponse;
+
+  static late StreamController<List<String>> _messageController;
   static late io.Socket _socket;
   static String _userName = '';
 
   static String? get userId => _socket.id;
-
-  static Stream<Room> get getResponse =>
-      _socketResponse.stream.asBroadcastStream();
-
-  static Stream<List<String>> get userResponse =>
-      _userResponse.stream.asBroadcastStream();
+  static Stream<List<String>> get messageStream => _messageController.stream;
+  static void init() {
+    // Create a new stream controller to handle incoming messages
+    _messageController = StreamController<List<String>>.broadcast();
+  }
 
   static void setUserName(String name) {
     _userName = name;
@@ -29,7 +25,6 @@ class SocketService {
   }
 
   static void connectAndListen() {
-    _userResponse = StreamController<List<String>>();
     _socket = io.io(
         serverUrl,
         io.OptionBuilder()
@@ -43,18 +38,21 @@ class SocketService {
     //When an event recieved from server, data is added to the stream
     _socket.on('message', (data) {
       if (data == 'UserConnected') {
-        sendMessage('$_userName joined');
+        sendMessage(_userName);
       } else {
         //_socketResponse.sink.add(Chat.fromRawJson(data));
       }
     });
-    _socket.on('userResponse', (data) {
-      _userResponse.add(data);
+    _socket.on('message', (data) {
+      var users = (data as List<dynamic>).map((e) => e.toString()).toList();
+      _messageController.sink.add(users);
     });
     //when users are connected or disconnected
     // _socket.on('users', (data) {
     //   _userResponse.sink.add('$_userName joined' as List<String>);
     // });
+
+
 
     _socket.onDisconnect((_) => print('disconnect'));
   }
@@ -64,7 +62,5 @@ class SocketService {
     _socket.destroy();
     _socket.close();
     _socket.disconnect();
-    _socketResponse.close();
-    _userResponse.close();
   }
 }

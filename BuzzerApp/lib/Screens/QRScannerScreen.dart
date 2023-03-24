@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:buzzerapp/PopupScreens/QRCodeCammera.dart';
+
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScanner extends StatefulWidget {
@@ -133,7 +133,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     return SizedBox(
       height: 400,
       child: Padding(
-       padding: const EdgeInsets.only(left:7.0,right: 8.0,bottom: 9.0,top: 9.0),
+       padding: const EdgeInsets.only(left:7.25,right: 8.0,bottom: 9.0,top: 9.0),
         child: _buildQrView(context),
       ),
     );

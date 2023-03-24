@@ -8,14 +8,13 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 // import 'package:buzzer_demo/QRScannerScreen.dart';
 import 'package:buzzerapp/Screens/PinCodeScreen.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_kronos/flutter_kronos.dart';
 import 'package:intl/intl.dart';
-import 'package:jiffy/jiffy.dart';
+
 import 'package:ntp/ntp.dart';
 
 import '../Colors/colors.dart';
@@ -23,9 +22,7 @@ import '../PopupScreens/GeneratePopup.dart';
 import 'CurrentSession.dart';
 
 import 'BuzzerMainScreen.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:system_clock/system_clock.dart';
+
 import 'package:timer_builder/timer_builder.dart';
 
 import 'QRScannerScreen.dart';
@@ -75,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen>
                 transform: Matrix4.translationValues(20, 0.0, 0.0),
                 padding: const EdgeInsets.symmetric(vertical: 30),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     SizedBox(
                       height: 45,
@@ -88,7 +85,6 @@ class _HomeScreenState extends State<HomeScreen>
                           color: textYellow,
                         ),
                         label: Timer(context),
-
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(borderColor),
@@ -207,7 +203,7 @@ extension TimeConvert on int? {
 
 String SystemTime() {
   var now = DateTime.now();
-  var time = main();
+  // var time = main();
   initPlatformState();
   if (_currentNtpTimeMs.stringify == "") {
     return "";
@@ -219,23 +215,23 @@ String SystemTime() {
     return formattedTime;
   }
 }
-
-Future<DateTime> main() async {
-  DateTime _myTime;
-  DateTime _ntpTime;
-
-  /// Or you could get NTP current (It will call DateTime.now() and add NTP offset to it)
-  _myTime = await NTP.now();
-
-  /// Or get NTP offset (in milliseconds) and add it yourself
-  //final int offset = await NTP.getNtpOffset(localTime: DateTime.now());
-  //_ntpTime = _myTime.add(Duration(milliseconds: offset));
-  final int offset = await NTP.getNtpOffset(
-      localTime: DateTime.now(), lookUpAddress: "time.google.com");
-  var inputFormat = DateFormat('HH:mm');
-  DateTime internetTime = inputFormat.parse('22:59');
-  return internetTime;
-}
+//
+// Future<DateTime> main() async {
+//   DateTime _myTime;
+//   DateTime _ntpTime;
+//
+//   /// Or you could get NTP current (It will call DateTime.now() and add NTP offset to it)
+//   _myTime = await NTP.now();
+//
+//   /// Or get NTP offset (in milliseconds) and add it yourself
+//   // final int offset = await NTP.getNtpOffset(localTime: DateTime.now());
+//   // _ntpTime = _myTime.add(Duration(milliseconds: offset));
+//   // final int offset = await NTP.getNtpOffset(
+//   //     localTime: DateTime.now(), lookUpAddress: "time.google.com");
+//   var inputFormat = DateFormat('HH:mm');
+//   DateTime internetTime = inputFormat.parse('22:59');
+//   return internetTime;
+// }
 
 @override
 Widget Timer(BuildContext context) {
@@ -262,13 +258,15 @@ Widget _secondContainer(BuildContext context) {
           child: Material(
             type: MaterialType.transparency,
             child: Ink(
+              height: 40,
+              width: 40,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100), color: iconBorder),
+                  borderRadius: BorderRadius.circular(100), color: iconBorder,),
               child: InkWell(
                 onTap: () {},
                 child: IconButton(
                   icon: const Icon(Icons.volume_up),
-                  iconSize: 30,
+                  iconSize: 25,
                   color: Colors.white,
                   onPressed: () {
                     PlayAudio();
@@ -279,7 +277,7 @@ Widget _secondContainer(BuildContext context) {
           ),
         ),
         const SizedBox(
-          width: 23,
+          width: 13,
         ),
         SizedBox(
           child: Theme(
@@ -399,8 +397,8 @@ class _AudioDropdownState extends State<AudioDropdown> {
 void CurrentTime() async {
   DateTime startDate = await NTP.now();
   currenttime = startDate.toString();
-  //DateTime startDate = new DateTime.now().toLocal();
-  //int offset = await NTP.getNtpOffset(localTime: startDate);
+  // DateTime startDate = new DateTime.now().toLocal();
+  int offset = await NTP.getNtpOffset(localTime: startDate);
   //var time = (({startDate.add(Duration(minutes: offset))}).toString());
   //print('NTP DateTime offset align: ${startDate.add(new Duration(milliseconds: offset))}');
 //return (({startDate.add(Duration(minutes: offset))}).toString());
@@ -450,8 +448,8 @@ Widget _thirdContainer(BuildContext context) {
           height: 50,
           child: ElevatedButton.icon(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>  PinCode()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => PinCode()));
             },
             icon: const Text(
               'Join with PIN',
@@ -557,8 +555,14 @@ Widget _fourthContainer(BuildContext context) {
 }
 
 Widget _fifthContainer(BuildContext context) {
-  return SizedBox(
-    width: MediaQuery.of(context).size.width,
-    child: Image.asset('assets/images/ic_boxpattern.png', fit: BoxFit.cover),
+  return Expanded(
+    flex: 1,
+    child: Stack(
+      alignment: Alignment.bottomLeft,
+      children: [
+        Image.asset('assets/images/ic_boxpattern.png',
+            width: MediaQuery.of(context).size.width, fit: BoxFit.cover),
+      ],
+    ),
   );
 }

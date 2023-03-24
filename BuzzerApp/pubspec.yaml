@@ -48,10 +48,7 @@ dependencies:
   aws_dynamodb_api: ^2.0.0
   spacer: ^1.0.0
   aws_sdk: ^0.0.3
-  socket_io: ^1.0.0
-  socket_io_client: ^1.0.1
-  socket_io_common: ^1.0.1
-  flutter_io_socket: ^0.0.7
+  socket_io_client: 1.0.1
   qr_code_scanner: ^1.0.1
   orientation: ^1.3.0
   assets_audio_player: ^3.0.6
@@ -124,6 +121,9 @@ flutter:
     - assets/images/ic_rectangle_three.png
     - assets/images/ic_three.png
     - assets/images/ic_CircleWavyCheck.png
+    - assets/images/ic_smiley_grey.png
+    - assets/images/ic_buzzergreen.png
+    - assets/images/ic_smiley_yellow.png
     - assets/audio/default.mp3
     - assets/audio/Sound1.mp3
     - assets/audio/Sound2.mp3
